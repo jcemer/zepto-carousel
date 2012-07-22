@@ -1,0 +1,54 @@
+body {
+    width: 500px;
+    padding-top: 100px;
+    margin: 0 auto;
+}
+
+.container, li {
+    width: 500px;
+    height: 500px;
+    display: block;
+}
+.container {
+    position: relative;
+    overflow: hidden;
+}
+.prev { float: left; }
+.next { float: right; }
+
+button.disable {
+    opacity: .2;
+}
+
+li {
+    -webkit-transition: .3s all ease-out;
+       -moz-transition: .3s all ease-out;
+        -ms-transition: .3s all ease-out;
+         -o-transition: .3s all ease-out;
+            transition: .3s all ease-out;
+
+    line-height: 300px;
+    color: white;
+    text-align: center;
+    font:400 30px/500px 'Bree Serif';
+
+    list-style: none;
+    position: absolute;
+    left: 500px;
+}
+li.moving {
+    -webkit-transition: none;
+       -moz-transition: none;
+        -ms-transition: none;
+         -o-transition: none;
+            transition: none;
+}
+li:nth-child(1) { background: red; }
+li:nth-child(2) { background: blue; }
+li:nth-child(3) { background: purple; }
+li:nth-child(4) { background: orange; }
+
+li.to-current { left: 0; }
+li.to-prev { left: -500px !important; }
+li.to-next { left: 500px !important; }
+

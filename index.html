@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>Zepto Carousel</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="//fonts.googleapis.com/css?family=Bree+Serif" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="container">
+        <ul>
+            <li>Page 1</li>
+            <li>Page 2</li>
+            <li>Page 3</li>
+            <li>Page 4</li>
+        </ul>
+    </div>
+    <button class="prev" type="button">Previous</button>
+    <button class="next" type="button">Next</button>
+
+    <script src="zepto.js"></script>
+    <script src="zepto-carousel.js"></script>
+    <script>
+        $('.container ul').carousel();
+    </script>
+</body>
+</html>
