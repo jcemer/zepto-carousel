@@ -1,6 +1,6 @@
-# Zepto carousel.js 
+# Zepto Carousel
 
-Very simple carousel with support to *swipe*.
+Very simple carousel with support to *swipe* and *css transitions*.
 
 ``` html
 <div class="container">

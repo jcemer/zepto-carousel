@@ -2,6 +2,7 @@ body {
     width: 500px;
     padding-top: 100px;
     margin: 0 auto;
+    font:400 15px/1 'Bree Serif';
 }
 
 .container, li {
