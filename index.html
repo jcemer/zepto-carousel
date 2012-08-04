@@ -8,26 +8,28 @@
     <link href="//fonts.googleapis.com/css?family=Ubuntu:300,700" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <div class="wrapper">
-        <h1>Zepto Carousel</h1>
-        <p>Very simple carousel with support to swipe and css transitions.</p> 
-        <p><a href="//github.com/jcemer/zepto-carousel">github.com/jcemer/zepto-carousel</a></p>
-        <div class="container">
-            <ul>
-                <li>Page 1</li>
-                <li>Page 2</li>
-                <li>Page 3</li>
-                <li>Page 4</li>
-            </ul>
-        </div>
-        <button class="prev" type="button">Prev</button>
-        <button class="next" type="button">Next</button>
+    <div id="main">
+        <div class="wrapper">
+            <h1>Zepto Carousel</h1>
+            <p>Very simple carousel with support to swipe and css transitions.</p> 
+            <p><a href="//github.com/jcemer/zepto-carousel">github.com/jcemer/zepto-carousel</a></p>
+            <div class="container">
+                <ul>
+                    <li>Page 1</li>
+                    <li>Page 2</li>
+                    <li>Page 3</li>
+                    <li>Page 4</li>
+                </ul>
+            </div>
+            <button class="prev" type="button">Prev</button>
+            <button class="next" type="button">Next</button>
 
-        <script src="zepto.js"></script>
-        <script src="zepto-carousel.js"></script>
-        <script>
-            $('.container ul').carousel();
-        </script>
+            <script src="zepto.js"></script>
+            <script src="zepto-carousel.js"></script>
+            <script>
+                $('.container ul').carousel();
+            </script>
+        </div>
     </div>
 </body>
 </html>

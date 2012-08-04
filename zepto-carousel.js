@@ -64,7 +64,7 @@
             var x = event.touches[0].pageX;
             current.addClass('moving');
             function animate(event) {
-                event.preventDefault();
+                //event.preventDefault();
                 current[0].style['-webkit-transform'] = 'translate3d(' + (event.touches[0].pageX - x) + 'px, 0, 0)';
             };
             function stop(event) {
