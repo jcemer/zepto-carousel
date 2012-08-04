@@ -31,7 +31,7 @@
         move = {
             reset: function() {
                 current.removeClass('moving');
-                current[0].style.left = 0;
+                current[0].style['-webkit-transform'] = 'translate3d(0, 0, 0)';
             },
             next: function() {
                 var element = current.next();
@@ -65,14 +65,17 @@
         container.on('touchstart', function(event) {
             var x = event.touches[0].pageX;
             current.addClass('moving');
-            function fn(event) {
+            function move(event) {
                 event.preventDefault();
                 current[0].style['-webkit-transform'] = 'translate3d(' + (event.touches[0].pageX - x) + 'px, 0, 0)';
             };
-            doc.bind('touchmove', fn).one('touchend', function() {
-                doc.off('touchmove', fn);
+            function stop(event) {
+                doc.off('touchmove', move);
+                doc.off('touchend touchcancel', stop);
                 move.reset();
-            });
+            };
+            doc.bind('touchmove', move)
+            doc.bind('touchend touchcancel', stop);
         });
         container.on('swipeLeft', move.next);
         container.on('swipeRight', move.prev);
@@ -85,7 +88,6 @@
         } else if (current.is(':last-child')) {
             btn.next.addClass('disable');
         }
-
     }
 
 })(Zepto);
