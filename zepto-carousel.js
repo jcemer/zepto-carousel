@@ -1,4 +1,4 @@
-;(function($){
+;(function($) {
     'use strict';
 
     var defaults = {
@@ -9,14 +9,24 @@
     $.fn.carousel = function(opts) {
         var settings = $.extend({}, defaults, opts),
             container = $(this),
-            current = container.find('.to-current'),
             btn = { prev: $(settings.prev), next: $(settings.next) },
             doc = $(document),
+            current = (function() {
+                var element = container.find('.to-current'),
+                    classname = 'to-prev';
+                if (!element.length) {
+                    element = container.children().first().addClass('to-current');
+                }
+                container.children().each(function () {       
+                    if ($(this).hasClass('to-current')) {
+                        classname = 'to-next'
+                    } else {
+                        $(this).addClass(classname);
+                    }
+                });
+                return element
+            })(),
             move;
-
-        if (!current.length) {
-            current = container.children().first().addClass('to-current');
-        }
 
         move = {
             reset: function() {
@@ -57,7 +67,7 @@
             current.addClass('moving');
             function fn(event) {
                 event.preventDefault();
-                current[0].style.left = (event.touches[0].pageX - x) + 'px';
+                current[0].style['-webkit-transform'] = 'translate3d(' + (event.touches[0].pageX - x) + 'px, 0, 0)';
             };
             doc.bind('touchmove', fn).one('touchend', function() {
                 doc.off('touchmove', fn);

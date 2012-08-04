@@ -21,6 +21,10 @@ button.disable {
     opacity: .2;
 }
 
+ul {
+    padding: 0;
+}
+
 li {
     -webkit-transition: .3s all ease-out;
        -moz-transition: .3s all ease-out;
@@ -35,7 +39,6 @@ li {
 
     list-style: none;
     position: absolute;
-    left: 500px;
 }
 li.moving {
     -webkit-transition: none;
@@ -49,7 +52,7 @@ li:nth-child(2) { background: blue; }
 li:nth-child(3) { background: purple; }
 li:nth-child(4) { background: orange; }
 
-li.to-current { left: 0; }
-li.to-prev { left: -500px !important; }
-li.to-next { left: 500px !important; }
+li.to-current { -webkit-transform: translate3d(0, 0, 0) }
+li.to-prev { -webkit-transform: translate3d(-500px, 0, 0) !important; }
+li.to-next { -webkit-transform: translate3d(500px, 0, 0) !important; }
 
