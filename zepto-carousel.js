@@ -1,4 +1,4 @@
-;(function($) {
+;(function ($) {
     'use strict';
 
     // thanks to http://www.mobify.com/
@@ -7,15 +7,15 @@
         has: {},
         prefixes: ['Webkit', 'Moz', 'O', 'ms', ''],
 
-        getProperty: function(name) {
+        getProperty: function (name) {
             var div, property;
-            if (typeof CSS.cache[name] !== undefined) {
+            if (typeof CSS.cache[name] !== 'undefined') {
                 return CSS.cache[name];
             }
 
             div  = document.createElement('div').style;
             for (var i = 0; i < CSS.prefixes.length; ++i) {
-                if (div[CSS.prefixes[i] + name] !== undefined) {
+                if (div[CSS.prefixes[i] + name] != undefined) {
                     return CSS.cache[name] = CSS.prefixes[i] + name;
                 }
             }
@@ -27,7 +27,7 @@
         'transform3d': !! (window.WebKitCSSMatrix && 'm11' in new WebKitCSSMatrix()) 
     };
 
-    CSS.translateX = function(element, delta) {
+    CSS.translateX = function (element, delta) {
         var property = CSS.getProperty('Transform');
         if (typeof delta === 'number') {
             delta = delta + 'px';
@@ -41,7 +41,21 @@
         }
     };
 
+    CSS.addClass = function () {
+        $.each(arguments, function () {
+            $('html').addClass((CSS.has[this] ? '' : 'no-') + this);
+        });
+    };
 
+    CSS.addClass('transform', 'transform3d');
+
+})(Zepto);
+
+
+
+;(function ($) {
+    'use strict';
+    
     var defaults = {
         prev: '.prev',
         next: '.next'
