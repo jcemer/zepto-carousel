@@ -1,5 +1,7 @@
 # Zepto Carousel
 
+http://jcemer.com/zepto-carousel
+
 Very simple carousel with support to *swipe* and *css transitions*.
 
 ``` html
