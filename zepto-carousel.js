@@ -2,55 +2,50 @@
     'use strict';
 
     // thanks to http://www.mobify.com/
-    var CSS = {
+    $.CSS = {
         cache: {},
-        has: {},
-        prefixes: ['Webkit', 'Moz', 'O', 'ms', ''],
+        prefixes: ['Webkit', 'Moz', 'O', 'ms', '']
+    };
 
-        getProperty: function (name) {
-            var div, property;
-            if (typeof CSS.cache[name] !== 'undefined') {
-                return CSS.cache[name];
+    $.CSS.getProperty = function (name) {
+        var div, property;
+        if (typeof $.CSS.cache[name] !== 'undefined') {
+            return $.CSS.cache[name];
+        }
+
+        div = document.createElement('div').style;
+        for (var i = 0; i < $.CSS.prefixes.length; ++i) {
+            if (div[$.CSS.prefixes[i] + name] != undefined) {
+                return $.CSS.cache[name] = $.CSS.prefixes[i] + name;
             }
-
-            div  = document.createElement('div').style;
-            for (var i = 0; i < CSS.prefixes.length; ++i) {
-                if (div[CSS.prefixes[i] + name] != undefined) {
-                    return CSS.cache[name] = CSS.prefixes[i] + name;
-                }
-            }
         }
+    }
+
+    $.supports = {
+        transform: !!($.CSS.getProperty('Transform')),
+        transform3d: !!(window.WebKitCSSMatrix && 'm11' in new WebKitCSSMatrix())
     };
 
-    CSS.has = {
-        'transform': !! (CSS.getProperty('Transform')),
-        'transform3d': !! (window.WebKitCSSMatrix && 'm11' in new WebKitCSSMatrix()) 
-    };
-
-    CSS.translateX = function (element, delta) {
-        var property = CSS.getProperty('Transform');
-        if (typeof delta === 'number') {
-            delta = delta + 'px';
-        }
-        if (CSS.has.transform3d) {
-            element.style[property] = 'translate3d(' + delta  + ', 0, 0)';
-        } else if (CSS.has.transform) {
-            element.style[property] = 'translate(' + delta  + ', 0)';
-        } else {
-            element.style.left = delta;
-        }
-    };
-
-    CSS.addClass = function () {
+    $.supports.addClass = function () {
         $.each(arguments, function () {
-            $('html').addClass((CSS.has[this] ? '' : 'no-') + this);
+            $('html').addClass(($.supports[this] ? '' : 'no-') + this);
         });
     };
 
-    CSS.addClass('transform', 'transform3d');
-
+    $.translateX = function(element, delta) {
+        var property = property = $.CSS.getProperty('Transform');
+        if (typeof delta === 'number') {
+            delta = delta + 'px';
+        }
+        if ($.supports.transform3d) {
+            return element.style[property] = 'translate3d(' + delta + ', 0, 0)';
+        } else if ($.supports.transform) {
+            return element.style[property] = 'translate(' + delta + ', 0)';
+        } else {
+            return element.style.left = delta;
+        }
+    };
 })(Zepto);
-
 
 
 ;(function ($) {
@@ -58,7 +53,8 @@
     
     var defaults = {
         prev: '.prev',
-        next: '.next'
+        next: '.next',
+        tapGesture: document.ontouchstart === null ? 'tap' : 'click'
     };
 
     $.fn.carousel = function (opts) {
@@ -84,7 +80,7 @@
             move = {
                 reset: function () {
                     current.removeClass('moving');
-                    CSS.translateX(current[0], 0);
+                    $.translateX(current[0], 0);
                 },
                 next: function () {
                     var element = current.next();
@@ -119,7 +115,7 @@
             var x = event.touches[0].pageX;
             current.addClass('moving');
             function animate(event) {
-                CSS.translateX(current[0], event.touches[0].pageX - x);
+                $.translateX(current[0], event.touches[0].pageX - x);
             };
             function stop(event) {
                 doc.off('touchmove', animate);
@@ -133,8 +129,8 @@
         container.on('swipeRight', move.prev);
 
         // BTNS
-        btn.prev.on('tap, click', move.prev);
-        btn.next.on('tap, click', move.next);
+        btn.prev.on(defaults.tapGesture, move.prev);
+        btn.next.on(defaults.tapGesture, move.next);
         if (current.is(':first-child')) {
             btn.prev.addClass('disable');
         } else if (current.is(':last-child')) {

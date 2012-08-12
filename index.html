@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Zepto Carousel</title>
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=500">
     <link rel="stylesheet" href="styles.css">
     <link href="//fonts.googleapis.com/css?family=Ubuntu:300,700" rel="stylesheet" type="text/css">
 </head>
@@ -27,6 +27,7 @@
             <script src="zepto.js"></script>
             <script src="zepto-carousel.js"></script>
             <script>
+                $.supports.addClass('transform', 'transform3d');
                 $('.container ul').carousel();
             </script>
         </div>
